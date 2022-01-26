@@ -1,1 +1,1 @@
-# openmm-gamd-tests
+# gamd-openmm-tests
