@@ -7,14 +7,10 @@ import os
 def create_graphics(execution_directory, command,
                     temperature, output_filename):
 
-#    result = subprocess.run(["/bin/bash " + command + " " + " " +
-#                             str(temperature)], capture_output=True,
-#                            cwd=execution_directory, shell=True)
-
     result = subprocess.run(["/bin/bash " + command + " " + " " +
-                             str(temperature)], stdout = subprocess.PIPE,
-                            stderr = subprocess.STDOUT,
-                            universal_newlines = True,
+                             str(temperature)], stdout=subprocess.PIPE,
+                            stderr=subprocess.STDOUT,
+                            universal_newlines=True,
                             cwd=execution_directory, shell=True)
 
     with open(output_filename, "w") as output:
@@ -72,8 +68,6 @@ def write_out_phi_psi_cpptraj_command(output_directory, starting_frame):
 
 
 class PostSimulationTestRunner(Runner):
-#    def __init__(self, config, gamdSimulation, debug):
-#        super(Runner, self).__init__(config, gamdSimulation, debug)
 
     def run_post_simulation(self, temperature, output_directory,
                             production_starting_frame):
