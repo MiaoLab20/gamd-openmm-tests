@@ -32,7 +32,7 @@ def run_post_simulation(unitless_temperature, output_directory,
 
             print("Running default data preperation steps.")
             print("Running reweighting based on provided config, but "
-                  "but using calculated weights.dat file.")
+                  "using calculated weights.dat file.")
             config = reweighting.get_reweighting_configuration(
                 reweighting_ini_file)
 
