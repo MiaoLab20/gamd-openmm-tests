@@ -49,6 +49,17 @@ def main():
                                 "configuration value in your configuration "
                                 "for the output directory.",
                            type=str)
+    argparser.add_argument("-a", "--analysis-config", dest="reweighting_file",
+                           default=None,
+                           help="The path to the reweighting ini "
+                           "file that should be used for doing anaylsis, when "
+                           "the simulation is complete.", type=str)
+    argparser.add_argument("-c", "--prep-command", dest="prep_command",
+                           default=None,
+                           help="The location of the external command to "
+                                "to run for preparing the data for analysis.",
+                           type=str)
+
 
     args = argparser.parse_args()  # parse the args into a dictionary
     args = vars(args)
@@ -58,6 +69,8 @@ def main():
     platform = args["platform"]
     device_index = args["device_index"]
     debug = args["debug"]
+    prep_command = args["prep_command"]
+    analysis_config_file = args["reweighting_file"]
 
     parserFactory = parser.ParserFactory()
     config = parserFactory.parse_file(config_filename, config_file_type)
@@ -73,7 +86,8 @@ def main():
         config, platform, device_index)
     # If desired, modify OpenMM objects in gamdSimulation object here...
 
-    runner = PostSimulationTestRunner(config, gamdSim, debug)
+    runner = PostSimulationTestRunner(config, gamdSim, debug, prep_command,
+                                      analysis_config_file)
     runner.run(restart)
 
 
