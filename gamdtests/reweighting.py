@@ -114,7 +114,6 @@ def run_reweighting(output_directory, reweighting_parameters, temperature,
         execution_directory = os.path.join(output_directory,
                                            coordinate_directory)
 
-        print("Execution Directory:  ", execution_directory)
         result = subprocess.run([command],
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.STDOUT,
