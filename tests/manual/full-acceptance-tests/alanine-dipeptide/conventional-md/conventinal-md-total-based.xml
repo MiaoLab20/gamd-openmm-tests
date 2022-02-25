@@ -53,11 +53,7 @@
             <coordinates>
                 <file-type>DCD</file-type>
                 <!-- <file-type>PDB</file-type> -->
-                <interval>10</interval>
             </coordinates>
-            <restart-checkpoint>
-                <interval>10</interval>
-            </restart-checkpoint>
             <statistics>
                 <interval>10</interval>
             </statistics>
