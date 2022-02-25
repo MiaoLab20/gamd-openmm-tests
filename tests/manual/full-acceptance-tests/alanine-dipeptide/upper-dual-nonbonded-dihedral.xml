@@ -43,7 +43,7 @@
     </input-files>
 
     <outputs>
-        <directory>acceptance-output/upper-dual-non-bonded-dual/</directory>
+        <directory>acceptance-output/upper-dual-non-bonded-dihedral/</directory>
         <overwrite-output>True</overwrite-output>
 
         <reporting>
