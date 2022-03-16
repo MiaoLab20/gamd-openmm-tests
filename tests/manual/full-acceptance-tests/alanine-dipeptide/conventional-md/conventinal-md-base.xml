@@ -56,10 +56,10 @@
                 <interval>10</interval>
             </coordinates>
             <restart-checkpoint>
-                <interval>10</interval>
+                <interval>50</interval>
             </restart-checkpoint>
             <statistics>
-                <interval>10</interval>
+                <interval>50</interval>
             </statistics>
         </reporting>
     </outputs>
