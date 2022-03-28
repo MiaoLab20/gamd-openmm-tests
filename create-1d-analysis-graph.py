@@ -4,6 +4,7 @@ import sys
 import os
 import matplotlib.pyplot as plt
 from pprint import pprint
+from gamdtests import analysis
 
 
 def usage(appname):
@@ -23,19 +24,6 @@ def is_number(candidate):
     return True
 
 
-def determine_group_or_single_directory(directory):
-    analysis_test = os.path.join(directory, "analysis")
-    if os.path.exists(analysis_test) and os.path.isdir(analysis_test):
-        simulation_directories = [directory]
-    elif os.path.exists(directory):
-        simulation_directories = get_directories(directory)
-    else:
-        print("{} is not a directory and should be".format(directory))
-        sys.exit(-1)
-
-    return simulation_directories
-
-
 def get_coordinates_from_file(filepath):
     with open(filepath, "r") as input_file:
         lines = input_file.readlines()
@@ -53,15 +41,6 @@ def get_coordinates_from_file(filepath):
     return result
 
 
-def get_directories(directory):
-    directories = []
-    files = os.listdir(directory)
-    for file in files:
-        if os.path.isdir(os.path.join(directory, file)):
-            directories.append(os.path.join(directory, file))
-    return directories
-
-
 def main():
 
     appname = sys.argv[0]
@@ -73,15 +52,12 @@ def main():
 
     phi_filepath = "analysis/phi/pmf-c2-rc.dat.xvg"
     psi_filepath = "analysis/psi/pmf-c2-rc.dat.xvg"
-    #phi_filepath = "graphics-out/pmf-phi-reweight-CE2.xvg"
-    #psi_filepath = "graphics-out/pmf-psi-reweight-CE2.xvg"
-
 
     graph_title = None
     for entry in map(lambda x: x * 2, range(int(number_of_arguments / 2))):
-        directory = sys.argv[entry +1]
-        name = sys.argv[entry +2]
-        simulation_directories = determine_group_or_single_directory(directory)
+        directory = sys.argv[entry + 1]
+        name = sys.argv[entry + 2]
+        simulation_directories = analysis.determine_group_or_single_directory(directory)
         pair = [name, simulation_directories]
         simulation_sets.append(pair)
         if graph_title is not None:
