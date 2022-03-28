@@ -18,20 +18,21 @@ QUICK=$4
 
 if [ "$QUICK" == "quick" ]; then
   CONFIG_FILE="./tests/manual/short-debug-tests/alanine-dipeptide/$RUN_TYPE.xml"
+  REWEIGHTING_FILE="./tests/manual/short-debug-tests/alanine-dipeptide/$RUN_TYPE.ini"
 else
   CONFIG_FILE="./tests/manual/full-acceptance-tests/alanine-dipeptide/$RUN_TYPE.xml"
+  REWEIGHTING_FILE="./tests/manual/full-acceptance-tests/alanine-dipeptide/$RUN_TYPE.ini"
 fi
 
 mkdir "$OUTPUT_BASE"
 
-./testRunner xml "$CONFIG_FILE" -o "$OUTPUT_BASE"/1/ -a ./tests/manual/reweighting.ini
+./testRunner xml "$CONFIG_FILE" -o "$OUTPUT_BASE"/1/ -a "$REWEIGHTING_FILE"
 echo ""
-./testRunner xml "$CONFIG_FILE" -o "$OUTPUT_BASE"/2/ -a ./tests/manual/reweighting.ini
+./testRunner xml "$CONFIG_FILE" -o "$OUTPUT_BASE"/2/ -a "$REWEIGHTING_FILE"
 echo ""
-./testRunner xml "$CONFIG_FILE" -o "$OUTPUT_BASE"/3/ -a ./tests/manual/reweighting.ini
+./testRunner xml "$CONFIG_FILE" -o "$OUTPUT_BASE"/3/ -a "$REWEIGHTING_FILE"
 
 COMPARISON_APP=$(realpath ./tools/create-1d-analysis-graph.py)
 
 cd  "$OUTPUT_BASE/"; $COMPARISON_APP "$Conventional_MD_Directory" "Conventional MD" ./ "$RUN_TYPE"; mv 1D-Phi.png "$RUN_TYPE"-1D-Phi.png; mv 1D-Psi.png "$RUN_TYPE"-1D-Psi.png
-
 
