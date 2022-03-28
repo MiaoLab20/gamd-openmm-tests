@@ -171,9 +171,11 @@ def gather_coordinates(filepath, simulation_sets):
         simulation_name = simulation[0]
         coordinates_set = []
         for directory in simulation_directories:
-            xvgfile = os.path.join(directory, filepath)
-            coordinates = get_coordinates_from_file(xvgfile)
-            coordinates_set.append(coordinates)
+            base_name = os.path.basename(directory)
+            if base_name != "analysis" and base_name != "2d-analysis":
+                xvgfile = os.path.join(directory, filepath)
+                coordinates = get_coordinates_from_file(xvgfile)
+                coordinates_set.append(coordinates)
         pair = [simulation_name, coordinates_set]
         results.append(pair)
     return results

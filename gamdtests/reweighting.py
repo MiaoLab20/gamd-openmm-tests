@@ -20,9 +20,9 @@ def get_one_and_two_dimension_groups(config):
     two_dimension_groups = []
 
     for section in config.sections():
-        if config[section]["dimension"] == "1":
+        if config[section]["dimensions"] == "1":
             one_dimension_groups.append(section)
-        elif config[section]["dimension"] == "2":
+        elif config[section]["dimensions"] == "2":
             two_dimension_groups.append(section)
 
     result = [one_dimension_groups, two_dimension_groups]
