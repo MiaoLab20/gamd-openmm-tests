@@ -76,14 +76,18 @@ def main():
     #phi_filepath = "graphics-out/pmf-phi-reweight-CE2.xvg"
     #psi_filepath = "graphics-out/pmf-psi-reweight-CE2.xvg"
 
-    graph_title = os.getcwd()
 
+    graph_title = None
     for entry in map(lambda x: x * 2, range(int(number_of_arguments / 2))):
         directory = sys.argv[entry +1]
         name = sys.argv[entry +2]
         simulation_directories = determine_group_or_single_directory(directory)
         pair = [name, simulation_directories]
         simulation_sets.append(pair)
+        if graph_title is not None:
+            graph_title = graph_title + " vs. " + name
+        else:
+            graph_title = name
 
     create_graphic(simulation_sets, phi_filepath, "Phi", graph_title)
     create_graphic(simulation_sets, psi_filepath, "Psi", graph_title)
