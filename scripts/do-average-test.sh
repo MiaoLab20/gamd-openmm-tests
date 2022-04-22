@@ -36,6 +36,7 @@ GRAPH_1D_APP=$(realpath ./create-1d-analysis-graph.py)
 GRAPH_2D_APP=$(realpath ./create-2d-analysis-graph.py)
 
 $GRAPH_2D_APP "$OUTPUT_BASE" "$REWEIGHTING_FILE"
-cd  "$OUTPUT_BASE/"; $GRAPH_1D_APP "$Conventional_MD_Directory" "Conventional MD" ./ "$RUN_TYPE"; mv 1D-Phi.png "$RUN_TYPE"-1D-Phi.png; mv 1D-Psi.png "$RUN_TYPE"-1D-Psi.png
+cd  "$OUTPUT_BASE/"; $GRAPH_1D_APP "$Conventional_MD_Directory" "Conventional MD" ./ "$RUN_TYPE"; mv 1D-Phi.png "$RUN_TYPE"-1D-Phi.png; mv 1D-Psi.png "$RUN_TYPE"-1D-Psi.png; mv 2d-analysis/2D_Free_energy_surface.png "$RUN_TYPE"-2D_Free_energy_surface.png
+
 
 
