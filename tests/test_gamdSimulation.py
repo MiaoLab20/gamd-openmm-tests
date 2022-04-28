@@ -26,3 +26,27 @@ def test_amber_alanine_dipeptide_object(tmp_path):
     gamdSimulationFactory = gamdSimulation.GamdSimulationFactory()
     gamdSim = gamdSimulationFactory.createGamdSimulation(
         config, "reference", "")
+        
+def test_gromacs_peptide_object(tmp_path):
+    """
+    
+    """
+    os.chdir(ROOT_DIRECTORY)
+    input_file = os.path.join(TEST_DIRECTORY, "../data/peptide_gromacs.xml")
+    parserFactory = parser.ParserFactory()
+    config = parserFactory.parse_file(input_file, "xml")
+    gamdSimulationFactory = gamdSimulation.GamdSimulationFactory()
+    gamdSim = gamdSimulationFactory.createGamdSimulation(
+        config, "reference", "")
+
+def test_charmm_dip_object(tmp_path):
+    """
+    
+    """
+    os.chdir(ROOT_DIRECTORY)
+    input_file = os.path.join(TEST_DIRECTORY, "../data/dip_charmm.xml")
+    parserFactory = parser.ParserFactory()
+    config = parserFactory.parse_file(input_file, "xml")
+    gamdSimulationFactory = gamdSimulation.GamdSimulationFactory()
+    gamdSim = gamdSimulationFactory.createGamdSimulation(
+        config, "reference", "")
