@@ -4,7 +4,7 @@
 
     <system>
         <nonbonded-method>PME</nonbonded-method>
-        <nonbonded-cutoff>1.0</nonbonded-cutoff> <!-- unit.nanometers -->
+        <nonbonded-cutoff>0.8</nonbonded-cutoff> <!-- unit.nanometers -->
         <constraints>HBonds</constraints>
     </system>
 

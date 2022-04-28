@@ -7,27 +7,36 @@ then
 fi
 
 if [ "$#" -lt 3 ]; then
-    echo "Usage do-average-test.sh location-of-cmd-directory run-type output-directory"
+    echo "Usage do-average-test.sh location-of-cmd-directory run-type output-directory [quick]"
     exit 2
 fi
 
-
-GAMD_Directory=`realpath $1`
+Conventional_MD_Directory=$(realpath "$1")
 RUN_TYPE=$2
 OUTPUT_BASE=$3
 QUICK=$4
-DEBUG=$5
 
-mkdir $OUTPUT_BASE
+if [ "$QUICK" == "quick" ]; then
+  CONFIG_FILE="./tests/manual/short-debug-tests/alanine-dipeptide/$RUN_TYPE.xml"
+  REWEIGHTING_FILE="./tests/manual/short-debug-tests/alanine-dipeptide/$RUN_TYPE.ini"
+else
+  CONFIG_FILE="./tests/manual/full-acceptance-tests/alanine-dipeptide/$RUN_TYPE.xml"
+  REWEIGHTING_FILE="./tests/manual/full-acceptance-tests/alanine-dipeptide/$RUN_TYPE.ini"
+fi
 
-./run-test.py $RUN_TYPE $OUTPUT_BASE/1/ $QUICK $DEBUG
+mkdir "$OUTPUT_BASE"
+
+./testRunner xml "$CONFIG_FILE" -o "$OUTPUT_BASE"/1/ -a "$REWEIGHTING_FILE"
 echo ""
-./run-test.py $RUN_TYPE $OUTPUT_BASE/2/ $QUICK $DEBUG
+./testRunner xml "$CONFIG_FILE" -o "$OUTPUT_BASE"/2/ -a "$REWEIGHTING_FILE"
 echo ""
-./run-test.py $RUN_TYPE $OUTPUT_BASE/3/ $QUICK $DEBUG
+./testRunner xml "$CONFIG_FILE" -o "$OUTPUT_BASE"/3/ -a "$REWEIGHTING_FILE"
 
-COMPARISON_APP=`realpath ./tools/create-test-comparison-graphics.py`
+GRAPH_1D_APP=$(realpath ./create-1d-analysis-graph.py)
+GRAPH_2D_APP=$(realpath ./create-2d-analysis-graph.py)
 
-cd  $OUTPUT_BASE/; $COMPARISON_APP $GAMD_Directory 1/ 2/ 3/; mv 1D-Phi.png $RUN_TYPE-1D-Phi.png; mv 1D-Psi.png $RUN_TYPE-1D-Psi.png
+$GRAPH_2D_APP "$OUTPUT_BASE" "$REWEIGHTING_FILE"
+cd  "$OUTPUT_BASE/"; $GRAPH_1D_APP "$Conventional_MD_Directory" "Conventional MD" ./ "$RUN_TYPE"; mv 1D-Phi.png "$RUN_TYPE"-1D-Phi.png; mv 1D-Psi.png "$RUN_TYPE"-1D-Psi.png; mv 2d-analysis/2D_Free_energy_surface.png "$RUN_TYPE"-2D_Free_energy_surface.png
+
 
 
