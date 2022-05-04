@@ -30,7 +30,7 @@
             <conventional-md>1000000</conventional-md>
             <gamd-equilibration-prep>200000</gamd-equilibration-prep>
             <gamd-equilibration>2000000</gamd-equilibration>
-            <gamd-production>497000000</gamd-production>
+            <gamd-production>500000000</gamd-production>
             <averaging-window-interval>25000</averaging-window-interval>
         </number-of-steps>
     </integrator>
@@ -52,12 +52,7 @@
             </energy>
             <coordinates>
                 <file-type>DCD</file-type>
-                <!-- <file-type>PDB</file-type> -->
-                <interval>10</interval>
             </coordinates>
-            <restart-checkpoint>
-                <interval>50</interval>
-            </restart-checkpoint>
             <statistics>
                 <interval>50</interval>
             </statistics>
