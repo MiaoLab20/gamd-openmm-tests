@@ -16,6 +16,7 @@ def create_analysis_directories(output_directory, coordinates):
 
 
 def run_post_simulation(unitless_temperature, output_directory,
+                        boost_type_str,
                         starting_frame, reweighting_ini_file=None,
                         analysis_data_prep_command=None):
 
@@ -42,7 +43,7 @@ def run_post_simulation(unitless_temperature, output_directory,
             create_analysis_directories(output_directory, reweighting_groups)
 
             dataprep.perform_data_prep(output_directory, starting_frame,
-                                       "data/dip.prmtop")
+                                       "data/dip.prmtop", boost_type_str)
             reweighting.run_all_reweightings(output_directory, config,
                                              unitless_temperature,
                                              "../../weights.dat")
@@ -73,6 +74,7 @@ class PostSimulationTestRunner(Runner):
                  analysis_config_file=None):
         self.prep_command = prep_command
         self.analysis_config_file = analysis_config_file
+        self.boost_type = config.integrator.boost_type
         super(PostSimulationTestRunner, self).__init__(config, gamdSim, debug)
 
     def run_post_simulation(self, temperature, output_directory,
@@ -95,6 +97,7 @@ class PostSimulationTestRunner(Runner):
             reweighting_file = None
 
         run_post_simulation(unitless_temperature, output_directory,
+                            self.boost_type,
                             production_starting_frame, reweighting_file,
                             data_prep_command)
 

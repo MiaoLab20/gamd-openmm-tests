@@ -61,14 +61,19 @@ def get_analysis_paths(output_directory, coordinate_type):
 
 
 def write_out_1d_rc_cpptraj_command(output_directory, starting_frame,
-                                    coordinate_type, cpptraj_command):
+                                    coordinate_type, cpptraj_command,
+                                    boost_type_str):
     paths = get_analysis_paths(output_directory, coordinate_type)
     command_str = "dihedral {} {} {}\n".format(coordinate_type,
                                                cpptraj_command,
                                                paths["relative-data-filepath"])
     with open(paths["command-path"], "w") as dat_command_file:
-        dat_command_file.write(
-            "trajin output.dcd " + str(int(starting_frame)) + "\n")
+        if boost_type_str != "gamd-cmd-base":
+            dat_command_file.write(
+                "trajin output.dcd " + str(int(starting_frame)) + "\n")
+        else:
+            dat_command_file.write("trajin output.dcd 1\n")
+
         dat_command_file.write(command_str)
         dat_command_file.write("go" + "\n")
     return paths
@@ -78,7 +83,7 @@ def write_out_2d_rc_cpptraj_command(output_directory, starting_frame,
                                     coordinate_type, coordinate_type1,
                                     coordinate_type2,
                                     cpptraj_command1,
-                                    cpptraj_command2):
+                                    cpptraj_command2,boost_type_str):
     paths = get_analysis_paths(output_directory, coordinate_type)
     template_str = "dihedral {} {} {}\n"
     command_str1 = template_str.format(coordinate_type1, cpptraj_command1,
@@ -86,42 +91,54 @@ def write_out_2d_rc_cpptraj_command(output_directory, starting_frame,
     command_str2 = template_str.format(coordinate_type2, cpptraj_command2,
                                        paths["relative-data-filepath"])
     with open(paths["command-path"], "w") as dat_command_file:
-        dat_command_file.write(
-            "trajin output.dcd " + str(int(starting_frame)) + "\n")
+        if boost_type_str != "gamd-cmd-base":
+            dat_command_file.write(
+                "trajin output.dcd " + str(int(starting_frame)) + "\n")
+        else:
+            dat_command_file.write("trajin output.dcd 1\n")
+
         dat_command_file.write(command_str1)
         dat_command_file.write(command_str2)
         dat_command_file.write("go" + "\n")
     return paths
 
 
-def write_out_phi_cpptraj_command(output_directory, starting_frame):
+def write_out_phi_cpptraj_command(output_directory, starting_frame,
+                                  boost_type_str):
     paths = write_out_1d_rc_cpptraj_command(output_directory, starting_frame,
-                                            "phi", ":1@C :2@N :2@CA :2@C out ")
+                                            "phi", ":1@C :2@N :2@CA :2@C out ",
+                                            boost_type_str)
     return paths
 
 
-def write_out_psi_cpptraj_command(output_directory, starting_frame):
+def write_out_psi_cpptraj_command(output_directory, starting_frame,
+                                  boost_type_str):
     paths = write_out_1d_rc_cpptraj_command(output_directory, starting_frame,
-                                            "psi", ":2@N :2@CA :2@C :3@N out ")
+                                            "psi", ":2@N :2@CA :2@C :3@N out ",
+                                            boost_type_str)
     return paths
 
 
-def write_out_phi_psi_cpptraj_command(output_directory, starting_frame):
+def write_out_phi_psi_cpptraj_command(output_directory, starting_frame,
+                                      boost_type_str):
     paths = write_out_2d_rc_cpptraj_command(output_directory, starting_frame,
                                             "phi-psi", "phi", "psi",
                                             ":1@C :2@N :2@CA :2@C out ",
-                                            ":2@N :2@CA :2@C :3@N out ")
+                                            ":2@N :2@CA :2@C :3@N out ",
+                                            boost_type_str)
     return paths
 
 
 # noinspection DuplicatedCode
-def write_out_and_run_cpptraj_command_files(output_directory,
-                                            starting_frame,
-                                            topology_filepath):
-    phi_paths = write_out_phi_cpptraj_command(output_directory, starting_frame)
-    psi_paths = write_out_psi_cpptraj_command(output_directory, starting_frame)
-    paths_2d = write_out_phi_psi_cpptraj_command(output_directory,
-                                                 starting_frame)
+def write_out_and_run_cpptraj_command_files(output_directory, starting_frame,
+                                            topology_filepath, boost_type_str=None):
+
+    phi_paths = write_out_phi_cpptraj_command(output_directory, starting_frame,
+                                              boost_type_str)
+    psi_paths = write_out_psi_cpptraj_command(output_directory, starting_frame,
+                                              boost_type_str)
+    paths_2d = write_out_phi_psi_cpptraj_command(output_directory, starting_frame,
+                                                 boost_type_str)
     paths = [phi_paths, psi_paths, paths_2d]
     for path in paths:
         run_cpptraj_command(output_directory, path["relative-command-path"],
@@ -156,10 +173,12 @@ def prep_cpptraj_output(filepath, output_directory, output_function):
                 output_function(output_file, row)
 
 
-def perform_data_prep(output_directory, starting_frame, topology_filepath):
+def perform_data_prep(output_directory, starting_frame, topology_filepath,
+                      boost_type_str=None):
     data_files = write_out_and_run_cpptraj_command_files(output_directory,
                                                          starting_frame,
-                                                         topology_filepath)
+                                                         topology_filepath,
+                                                         boost_type_str)
     paths_1d = data_files[0]
     paths_2d = data_files[1]
     for path in paths_1d:
