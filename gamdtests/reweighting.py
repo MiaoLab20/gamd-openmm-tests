@@ -45,49 +45,75 @@ def get_order_string(reweighting_parameters):
 
 def create_1d_command_string(parameters, temperature, reweighting_log_file,
                              weights_file=None):
-    command_template = "PyReweighting-1D.py -input {} -T {} -cutoff {} -Xdim {} -disc {} -Emax {} -job {} -weight {} {} {} | tee {}"
-    fit = get_fit_string(parameters)
-    order = get_order_string(parameters)
-    if weights_file is None:
-        weights_filepath = parameters["weight-file"]
+    if parameters["job"] != "noweight":
+        fit = get_fit_string(parameters)
+        order = get_order_string(parameters)
+        command_template = "PyReweighting-1D.py -input {} -T {} -cutoff {} -Xdim {} -disc {} -Emax {} -job {} -weight {} {} {} | tee {}"
+        if weights_file is None:
+            weights_filepath = parameters["weight-file"]
+        else:
+            weights_filepath = weights_file
+
+        command_str = command_template.format(parameters["input-file"],
+                                              str(temperature),
+                                              parameters["cutoff"],
+                                              parameters["xdim"],
+                                              parameters["disc"],
+                                              parameters["emax"],
+                                              parameters["job"],
+                                              weights_filepath,
+                                              fit,
+                                              order,
+                                              reweighting_log_file)
     else:
-        weights_filepath = weights_file
-    command_str = command_template.format(parameters["input-file"],
-                                          str(temperature),
-                                          parameters["cutoff"],
-                                          parameters["xdim"],
-                                          parameters["disc"],
-                                          parameters["emax"],
-                                          parameters["job"],
-                                          weights_filepath,
-                                          fit,
-                                          order,
-                                          reweighting_log_file)
+        command_template = "PyReweighting-1D.py -input {} -T {} -cutoff {} -Xdim {} -disc {} -Emax {} -job {} | tee {}"
+        command_str = command_template.format(parameters["input-file"],
+                                              str(temperature),
+                                              parameters["cutoff"],
+                                              parameters["xdim"],
+                                              parameters["disc"],
+                                              parameters["emax"],
+                                              parameters["job"],
+                                              reweighting_log_file)
+
     return command_str
 
 
 def create_2d_command_string(parameters, temperature, reweighting_log_file,
                              weights_file=None):
-    command_template = "PyReweighting-2D.py -input {} -T {} -cutoff {} -Xdim {} -discX {} -Ydim {} -discY {} -Emax {} -job {} -weight {} {} {}| tee {}"
-    fit = get_fit_string(parameters)
-    order = get_order_string(parameters)
-    if weights_file is None:
-        weights_filepath = parameters["weight-file"]
+    if parameters["job"] != "noweight":
+        command_template = "PyReweighting-2D.py -input {} -T {} -cutoff {} -Xdim {} -discX {} -Ydim {} -discY {} -Emax {} -job {} -weight {} {} {}| tee {}"
+        fit = get_fit_string(parameters)
+        order = get_order_string(parameters)
+        if weights_file is None:
+            weights_filepath = parameters["weight-file"]
+        else:
+            weights_filepath = weights_file
+        command_str = command_template.format(parameters["input-file"],
+                                              str(temperature),
+                                              parameters["cutoff"],
+                                              parameters["xdim"],
+                                              parameters["discX"],
+                                              parameters["ydim"],
+                                              parameters["discY"],
+                                              parameters["emax"],
+                                              parameters["job"],
+                                              weights_filepath,
+                                              fit,
+                                              order,
+                                              reweighting_log_file)
     else:
-        weights_filepath = weights_file
-    command_str = command_template.format(parameters["input-file"],
-                                          str(temperature),
-                                          parameters["cutoff"],
-                                          parameters["xdim"],
-                                          parameters["discX"],
-                                          parameters["ydim"],
-                                          parameters["discY"],
-                                          parameters["emax"],
-                                          parameters["job"],
-                                          weights_filepath,
-                                          fit,
-                                          order,
-                                          reweighting_log_file)
+        command_template = "PyReweighting-2D.py -input {} -T {} -cutoff {} -Xdim {} -discX {} -Ydim {} -discY {} -Emax {} -job {} | tee {}"
+        command_str = command_template.format(parameters["input-file"],
+                                              str(temperature),
+                                              parameters["cutoff"],
+                                              parameters["xdim"],
+                                              parameters["discX"],
+                                              parameters["ydim"],
+                                              parameters["discY"],
+                                              parameters["emax"],
+                                              parameters["job"],
+                                              reweighting_log_file)
     return command_str
 
 

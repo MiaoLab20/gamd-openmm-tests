@@ -19,7 +19,7 @@
         <algorithm>langevin</algorithm>
         <boost-type>upper-total</boost-type>
         <sigma0>
-            <primary>2.5</primary> <!-- unit.kilocalories_per_mole -->
+            <primary>1.0</primary> <!-- unit.kilocalories_per_mole -->
         </sigma0>
         <random-seed>4321</random-seed>
         <dt>0.002</dt> <!-- unit.picoseconds -->
