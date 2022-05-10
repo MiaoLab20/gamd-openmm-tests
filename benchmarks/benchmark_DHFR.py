@@ -58,17 +58,20 @@ def run_ordinary_openmm():
     ns_per_day = simulation_in_ns / total_time_in_days
     return ns_per_day
     
-def run_gamd_openmm(sigma0=6.0):
+def run_gamd_openmm(sigma0=6.0, stage1_steps=2000, stage2_steps=10000, 
+                    stage3_steps=2000, stage4_steps=20000, stage5_steps=30000,
+                    boost_type="lower-dual"):
     curdir = os.getcwd()
     os.chdir(ROOT_DIRECTORY)
     input_file = "data/dhfr_ff.xml"
     parserFactory = parser.ParserFactory()
     config = parserFactory.parse_file(input_file, "xml")
-    config.integrator.number_of_steps.conventional_md_prep == 2000
-    config.integrator.number_of_steps.conventional_md == 10000
-    config.integrator.number_of_steps.gamd_equilibration_prep == 2000
-    config.integrator.number_of_steps.gamd_equilibration == 20000
-    config.integrator.number_of_steps.gamd_production == 30000
+    config.integrator.boost_type = boost_type
+    config.integrator.number_of_steps.conventional_md_prep == stage1_steps
+    config.integrator.number_of_steps.conventional_md == stage2_steps
+    config.integrator.number_of_steps.gamd_equilibration_prep == stage3_steps
+    config.integrator.number_of_steps.gamd_equilibration == stage4_steps
+    config.integrator.number_of_steps.gamd_production == stage5_steps
     config.integrator.number_of_steps.averaging_window_interval == 50
     config.integrator.sigma0.primary = sigma0 * unit.kilocalories_per_mole
     config.integrator.sigma0.secondary = sigma0 * unit.kilocalories_per_mole
@@ -84,11 +87,55 @@ def run_gamd_openmm(sigma0=6.0):
     os.chdir(curdir)
     return ns_per_day
     
-print("GaMD results for sigma0 = 6.0")
-run_gamd_openmm(6.0)
-print("GaMD results for sigma0 = 0.0")
-run_gamd_openmm(0.0)
-ns_per_day_ordinary = run_ordinary_openmm()
-print("Ordinary OpenMM benchmark:", ns_per_day_ordinary, "ns/day")
-print("Alanine dipeptide system has:", num_atoms, "atoms")
+if __name__ == "__main__":
+    print("GaMD results for stage1 only.")
+    run_gamd_openmm(sigma0=6.0, 
+                    stage1_steps=60000,
+                    stage2_steps=0,
+                    stage3_steps=0,
+                    stage4_steps=0,
+                    stage5_steps=0,
+                    boost_type="lower-dual")
+    
+    print("GaMD results for stage1 + stage2.")
+    run_gamd_openmm(sigma0=6.0, 
+                    stage1_steps=200,
+                    stage2_steps=60000,
+                    stage3_steps=0,
+                    stage4_steps=0,
+                    stage5_steps=0,
+                    boost_type="lower-dual")
+                    
+    print("GaMD results for stages 1, 2, & 3.")
+    run_gamd_openmm(sigma0=6.0, 
+                    stage1_steps=200,
+                    stage2_steps=400,
+                    stage3_steps=60000,
+                    stage4_steps=0,
+                    stage5_steps=0,
+                    boost_type="lower-dual")
+                    
+    print("GaMD results for stages 1, 2, & 3.")
+    run_gamd_openmm(sigma0=6.0, 
+                    stage1_steps=200,
+                    stage2_steps=400,
+                    stage3_steps=200,
+                    stage4_steps=60000,
+                    stage5_steps=0,
+                    boost_type="lower-dual")
+                    
+    print("GaMD results for lower-dual.")
+    run_gamd_openmm(sigma0=6.0, 
+                    boost_type="lower-dual")
+    
+    print("GaMD results for lower-dihedral.")
+    run_gamd_openmm(sigma0=6.0, 
+                    boost_type="lower-dihedral")
+                    
+    print("GaMD results for lower-total.")
+    run_gamd_openmm(sigma0=6.0, 
+                    boost_type="lower-total")
+    ns_per_day_ordinary = run_ordinary_openmm()
+    print("Ordinary OpenMM benchmark:", ns_per_day_ordinary, "ns/day")
+    print("Alanine dipeptide system has:", num_atoms, "atoms")
 
