@@ -76,6 +76,8 @@ class PostSimulationTestRunner(Runner):
         self.analysis_config_file = analysis_config_file
         self.boost_type = config.integrator.boost_type
         super(PostSimulationTestRunner, self).__init__(config, gamdSim, debug)
+        self.gamd_reweighting_logger_enabled = True
+        self.gamd_dat_reporter_enabled = True
 
     def run_post_simulation(self, temperature, output_directory,
                             production_starting_frame):
