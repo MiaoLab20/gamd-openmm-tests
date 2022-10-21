@@ -1,0 +1,77 @@
+<?xml version="1.0" ?>
+<gamd>
+    <temperature>298</temperature> <!-- unit.kelvin -->
+
+    <system>
+        <nonbonded-method>PME</nonbonded-method>
+        <nonbonded-cutoff>1.2</nonbonded-cutoff> <!-- unit.nanometers -->
+	<constraints>HBonds</constraints>
+	<switch-distance>1.0</switch-distance>
+	<ewald-error-tolerance>0.0005</ewald-error-tolerance>
+    </system>
+
+    <barostat>
+        <pressure>1.0</pressure> <!-- unit.bar -->
+        <frequency>25</frequency>
+    </barostat>
+
+    <run-minimization>True</run-minimization>
+
+    <integrator>
+        <algorithm>langevin</algorithm>
+        <boost-type>lower-dual</boost-type>
+        <sigma0>
+            <primary>6.0</primary> <!-- unit.kilocalories_per_mole -->
+            <secondary>6.0</secondary> <!-- unit.kilocalories_per_mole -->
+        </sigma0>
+        <random-seed>4321</random-seed>
+        <dt>0.002</dt> <!-- unit.picoseconds -->
+        <friction-coefficient>1.0</friction-coefficient> <!-- unit.picoseconds**-1 -->
+        <number-of-steps> <!-- quick test -->
+            <conventional-md-prep>200000</conventional-md-prep>
+            <conventional-md>500000</conventional-md>
+            <gamd-equilibration-prep>100000</gamd-equilibration-prep>
+            <gamd-equilibration>2000000</gamd-equilibration>
+            <gamd-production>15000000</gamd-production>
+            <averaging-window-interval>50</averaging-window-interval>
+        </number-of-steps>
+    </integrator>
+
+    <input-files>
+        <charmm>
+            <topology>ala.c36.psf</topology>
+            <coordinates type="crd">ala.c36.crd</coordinates>
+	    <parameters>
+		    <parameter type="charmm-gui-toppar">toppar.str</parameter>
+	            <parameter>toppar_c36/par_all36m_prot.prm</parameter>
+		    <parameter>toppar_c36/toppar_water_ions.str</parameter>
+	    </parameters>
+            <box-vectors>
+                    <a>2.9</a>  <!-- unit.nanometers -->
+                    <b>2.9</b>  <!-- unit.nanometers -->
+		    <c>2.9</c>  <!-- unit.nanometers -->
+		    <alpha>90</alpha>  <!-- unit.degrees -->
+	            <beta>90</beta>    <!-- unit.degrees -->
+	            <gamma>90</gamma>  <!-- unit.degrees -->
+            </box-vectors>
+
+        </charmm>
+    </input-files>
+
+    <outputs>
+        <directory>results</directory>
+        <overwrite-output>True</overwrite-output>
+
+        <reporting>
+            <energy>
+                <interval>500</interval>
+            </energy>
+            <coordinates>
+                <file-type>DCD</file-type>
+            </coordinates>
+            <statistics>
+                <interval>500</interval>
+            </statistics>
+        </reporting>
+    </outputs>
+</gamd>
