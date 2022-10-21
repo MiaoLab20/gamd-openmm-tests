@@ -5,9 +5,9 @@
     <system>
         <nonbonded-method>PME</nonbonded-method>
         <nonbonded-cutoff>1.2</nonbonded-cutoff> <!-- unit.nanometers -->
-	<constraints>HBonds</constraints>
-	<switch-distance>1.0</switch-distance>
-	<ewald-error-tolerance>0.0005</ewald-error-tolerance>
+        <constraints>HBonds</constraints>
+        <switch-distance>1.0</switch-distance>
+        <ewald-error-tolerance>0.0005</ewald-error-tolerance>
     </system>
 
     <barostat>
@@ -41,20 +41,19 @@
         <charmm>
             <topology>ala.c36.psf</topology>
             <coordinates type="crd">ala.c36.crd</coordinates>
-	    <parameters>
-		    <parameter type="charmm-gui-toppar">toppar.str</parameter>
-	            <parameter>toppar_c36/par_all36m_prot.prm</parameter>
-		    <parameter>toppar_c36/toppar_water_ions.str</parameter>
-	    </parameters>
+            <parameters>
+                <parameter type="charmm-gui-toppar">toppar.str</parameter>
+                <parameter>toppar_c36/par_all36m_prot.prm</parameter>
+                <parameter>toppar_c36/toppar_water_ions.str</parameter>
+            </parameters>
             <box-vectors>
-                    <a>2.9</a>  <!-- unit.nanometers -->
-                    <b>2.9</b>  <!-- unit.nanometers -->
-		    <c>2.9</c>  <!-- unit.nanometers -->
-		    <alpha>90</alpha>  <!-- unit.degrees -->
-	            <beta>90</beta>    <!-- unit.degrees -->
-	            <gamma>90</gamma>  <!-- unit.degrees -->
+                <a>2.9</a>  <!-- unit.nanometers -->
+                <b>2.9</b>  <!-- unit.nanometers -->
+                <c>2.9</c>  <!-- unit.nanometers -->
+                <alpha>90</alpha>  <!-- unit.degrees -->
+                <beta>90</beta>    <!-- unit.degrees -->
+                <gamma>90</gamma>  <!-- unit.degrees -->
             </box-vectors>
-
         </charmm>
     </input-files>
 
