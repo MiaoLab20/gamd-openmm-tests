@@ -6,22 +6,28 @@ then
     exit
 fi
 
-if [ "$#" -lt 3 ]; then
-    echo "Usage do-average-test.sh location-of-cmd-directory run-type output-directory [quick]"
+if [ "$#" -lt 4 ]; then
+    echo "Usage do-average-test.sh location-of-cmd-directory config-type run-type output-directory [quick]"
+    echo "  location-of-cmd-directory:  Path containing the three conventional md runs."
+    echo "  config-type:                The input config based on input type:  amber, charmm36, etc."
+    echo "  run-type:                   boost type (lower-dual, upper-total, etc)"
+    echo "  output-directory:           Path to place all of the output."
+    echo "  quick:                      [Optional] Tells the program to use the config files in the short-debug-tests directories instead."
     exit 2
 fi
 
 Conventional_MD_Directory=$(realpath "$1")
 RUN_TYPE=$2
 OUTPUT_BASE=$3
-QUICK=$4
+CONFIG_TYPE=$4
+QUICK=$5
 
 if [ "$QUICK" == "quick" ]; then
-  CONFIG_FILE="./tests/manual/short-debug-tests/alanine-dipeptide/amber-inputs/$RUN_TYPE.xml"
-  REWEIGHTING_FILE="./tests/manual/short-debug-tests/alanine-dipeptide/$RUN_TYPE.ini"
+  CONFIG_FILE="./tests/manual/short-debug-tests/alanine-dipeptide/$CONFIG_TYPE/$RUN_TYPE.xml"
+  REWEIGHTING_FILE="./tests/manual/short-debug-tests/alanine-dipeptide/reweighting/$RUN_TYPE.ini"
 else
-  CONFIG_FILE="./tests/manual/full-acceptance-tests/alanine-dipeptide/amber-inputs/$RUN_TYPE.xml"
-  REWEIGHTING_FILE="./tests/manual/full-acceptance-tests/alanine-dipeptide/$RUN_TYPE.ini"
+  CONFIG_FILE="./tests/manual/full-acceptance-tests/alanine-dipeptide/$CONFIG_TYPE/$RUN_TYPE.xml"
+  REWEIGHTING_FILE="./tests/manual/full-acceptance-tests/alanine-dipeptide/reweighting/$RUN_TYPE.ini"
 fi
 
 mkdir "$OUTPUT_BASE"
