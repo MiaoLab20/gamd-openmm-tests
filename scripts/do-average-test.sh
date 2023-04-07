@@ -17,10 +17,10 @@ OUTPUT_BASE=$3
 QUICK=$4
 
 if [ "$QUICK" == "quick" ]; then
-  CONFIG_FILE="./tests/manual/short-debug-tests/alanine-dipeptide/$RUN_TYPE.xml"
+  CONFIG_FILE="./tests/manual/short-debug-tests/alanine-dipeptide/amber-inputs/$RUN_TYPE.xml"
   REWEIGHTING_FILE="./tests/manual/short-debug-tests/alanine-dipeptide/$RUN_TYPE.ini"
 else
-  CONFIG_FILE="./tests/manual/full-acceptance-tests/alanine-dipeptide/$RUN_TYPE.xml"
+  CONFIG_FILE="./tests/manual/full-acceptance-tests/alanine-dipeptide/amber-inputs/$RUN_TYPE.xml"
   REWEIGHTING_FILE="./tests/manual/full-acceptance-tests/alanine-dipeptide/$RUN_TYPE.ini"
 fi
 
