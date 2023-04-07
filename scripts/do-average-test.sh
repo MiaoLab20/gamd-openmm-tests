@@ -17,9 +17,9 @@ if [ "$#" -lt 4 ]; then
 fi
 
 Conventional_MD_Directory=$(realpath "$1")
-RUN_TYPE=$2
-OUTPUT_BASE=$3
-CONFIG_TYPE=$4
+CONFIG_TYPE=$2
+RUN_TYPE=$3
+OUTPUT_BASE=$4
 QUICK=$5
 
 if [ "$QUICK" == "quick" ]; then
