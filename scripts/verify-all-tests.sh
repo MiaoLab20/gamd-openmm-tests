@@ -8,7 +8,7 @@ then
     exit
 fi
 
-if [ "$#" -ne 3 ]; then
+if [ "$#" -lt 3 ]; then
     echo "Usage verify-all-tests.sh location-of-cmd-directory config-type output-directory [quick]"
     echo "  location-of-cmd-directory:  Path containing the three conventional md runs."
     echo "  config-type:                The input config based on input type:  amber, charmm36, etc."
