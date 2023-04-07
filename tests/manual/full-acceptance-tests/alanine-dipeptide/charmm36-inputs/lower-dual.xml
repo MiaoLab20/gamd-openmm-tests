@@ -1,4 +1,5 @@
 <?xml version="1.0" ?>
+<!-- CHARMM 36 GUI -->
 <gamd>
     <temperature>298</temperature> <!-- unit.kelvin -->
 
