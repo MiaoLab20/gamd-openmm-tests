@@ -43,7 +43,7 @@ def test_gromacs_peptide_runner_tiny(tmp_path):
     
     """
     os.chdir(ROOT_DIRECTORY)
-    input_file = os.path.join(TEST_DIRECTORY, "../data/peptide_gromacs.xml")
+    input_file = os.path.join(TEST_DIRECTORY, "../data/gromacs/peptide-gromacs.xml")
     parserFactory = parser.ParserFactory()
     config = parserFactory.parse_file(input_file, "xml")
     config.integrator.number_of_steps.conventional_md_prep == 10

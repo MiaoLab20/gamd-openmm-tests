@@ -37,8 +37,8 @@
 
     <input-files>
         <gromacs>
-            <topology>data/peptide.top</topology>
-            <coordinates>data/peptide.gro</coordinates>
+            <topology>data/gromacs/peptide.top</topology>
+            <coordinates>data/gromacs/peptide.gro</coordinates>
             <include-dir>/usr/local/gromacs/share/gromacs/top</include-dir>
         </gromacs>
     </input-files>
