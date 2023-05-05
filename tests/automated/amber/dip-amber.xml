@@ -37,8 +37,8 @@
 
     <input-files>
         <amber>
-            <topology>data/dip.top</topology>
-            <coordinates type="rst7">data/md-4ns.rst7</coordinates>
+            <topology>data//amber/alanine-dipeptide/dip.top</topology>
+            <coordinates type="rst7">data//amber/alanine-dipeptide/md-4ns.rst7</coordinates>
         </amber>
     </input-files>
 

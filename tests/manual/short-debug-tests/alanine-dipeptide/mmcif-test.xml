@@ -37,13 +37,13 @@
 
     <input-files>
         <amber>
-            <topology>data/amber/alanine-dipeptide/dip.top</topology>
-            <coordinates type="rst7">data/amber/alanine-dipeptide/md-4ns.rst7</coordinates>
+            <topology>data/dip.top</topology>
+            <coordinates type="pdb">data/dip.pdb</coordinates>
         </amber>
     </input-files>
 
     <outputs>
-        <directory>short-debug-output/lower-total/</directory>
+        <directory>short-debug-output/mmcif-test/</directory>
         <overwrite-output>True</overwrite-output>
 
         <reporting>
@@ -51,7 +51,7 @@
                 <interval>50</interval>
             </energy>
             <coordinates>
-                <file-type>DCD</file-type>
+                <file-type>PDB</file-type>
             </coordinates>
             <statistics>
                 <interval>50</interval>
