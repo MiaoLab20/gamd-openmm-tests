@@ -40,12 +40,12 @@
 
     <input-files>
         <charmm>
-            <topology>ala.c36.psf</topology>
-            <coordinates type="crd">ala.c36.crd</coordinates>
+            <topology>data/charmm/36/alanine-dipeptide/ala.c36.psf</topology>
+            <coordinates type="crd">data/charmm/36/alanine-dipeptide/ala.c36.crd</coordinates>
             <parameters>
-                <parameter type="charmm-gui-toppar">toppar.str</parameter>
-                <parameter>toppar_c36/par_all36m_prot.prm</parameter>
-                <parameter>toppar_c36/toppar_water_ions.str</parameter>
+                <parameter type="charmm-gui-toppar">data/charmm/36/alanine-dipeptide/toppar.str</parameter>
+                <parameter>data/charmm/36/alanine-dipeptide/toppar_c36/par_all36m_prot.prm</parameter>
+                <parameter>data/charmm/36/alanine-dipeptide/toppar_c36/toppar_water_ions.str</parameter>
             </parameters>
             <box-vectors>
                 <a>2.9</a>  <!-- unit.nanometers -->
