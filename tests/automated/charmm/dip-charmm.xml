@@ -34,11 +34,11 @@
 
     <input-files>
         <charmm>
-            <topology>data/ala_ala_ala.psf</topology>
-            <coordinates>data/ala_ala_ala.pdb</coordinates>
+            <topology>data/charmm/ala_ala_ala.psf</topology>
+            <coordinates>data/charmm/ala_ala_ala.pdb</coordinates>
             <parameters>
-                <parameter>data/charmm22.par</parameter>
-                <parameter>data/charmm22.rtf</parameter>
+                <parameter>data/charmm/22/charmm22.par</parameter>
+                <parameter>data/charmm/22/charmm22.rtf</parameter>
             </parameters>
         </charmm>
     </input-files>
